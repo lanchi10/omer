@@ -88,13 +88,17 @@
         function askQuestion(animal) {
             currentAnimal = animal;
             var audio = new Audio('animal_sounds/' + animal + '_sound.mp3');
-            audio.play();
+            audio.play().catch(function(error) {
+                console.error("השמעת הקול נכשלה: ", error);
+            });
         }
 
         function checkAnswer(animal) {
             if (animal === currentAnimal) {
                 var correctSound = new Audio('animal_sounds/' + animal + '_sound.mp3');
-                correctSound.play();
+                correctSound.play().catch(function(error) {
+                    console.error("השמעת הקול נכשלה: ", error);
+                });
                 alert("כל הכבוד! זיהית נכון את ה" + animal + "!");
             } else {
                 alert("זה לא נכון. נסה שוב!");
