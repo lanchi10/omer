@@ -57,53 +57,35 @@
 
     <div class="animal-container">
         <div class="animal-box">
-            <button class="button" onclick="askQuestion('Elephant')">שאלה על פיל</button>
-            <img src="images/Elephant.jpg" alt="פיל" class="animal-image" onclick="checkAnswer('Elephant')">
+            <button class="button" onclick="document.getElementById('elephantAudio').play()">שאלה על פיל</button>
+            <img src="images/Elephant.jpg" alt="פיל" class="animal-image" onclick="document.getElementById('elephantAudio').play()">
+            <audio id="elephantAudio" src="animal_sounds/elephant_sound.mp3"></audio>
         </div>
         <div class="animal-box">
-            <button class="button" onclick="askQuestion('Dog')">שאלה על כלב</button>
-            <img src="images/Dog.jpg" alt="כלב" class="animal-image" onclick="checkAnswer('Dog')">
+            <button class="button" onclick="document.getElementById('dogAudio').play()">שאלה על כלב</button>
+            <img src="images/Dog.jpg" alt="כלב" class="animal-image" onclick="document.getElementById('dogAudio').play()">
+            <audio id="dogAudio" src="animal_sounds/dog_bark.mp3"></audio>
         </div>
         <div class="animal-box">
-            <button class="button" onclick="askQuestion('Cat')">שאלה על חתול</button>
-            <img src="images/Cat.jpg" alt="חתול" class="animal-image" onclick="checkAnswer('Cat')">
+            <button class="button" onclick="document.getElementById('catAudio').play()">שאלה על חתול</button>
+            <img src="images/Cat.jpg" alt="חתול" class="animal-image" onclick="document.getElementById('catAudio').play()">
+            <audio id="catAudio" src="animal_sounds/cat_meow.mp3"></audio>
         </div>
         <div class="animal-box">
-            <button class="button" onclick="askQuestion('Horse')">שאלה על סוס</button>
-            <img src="images/Horse.jpg" alt="סוס" class="animal-image" onclick="checkAnswer('Horse')">
+            <button class="button" onclick="document.getElementById('horseAudio').play()">שאלה על סוס</button>
+            <img src="images/Horse.jpg" alt="סוס" class="animal-image" onclick="document.getElementById('horseAudio').play()">
+            <audio id="horseAudio" src="animal_sounds/horse_neigh.mp3"></audio>
         </div>
         <div class="animal-box">
-            <button class="button" onclick="askQuestion('Fish')">שאלה על דג</button>
-            <img src="images/Fish.jpg" alt="דג" class="animal-image" onclick="checkAnswer('Fish')">
+            <button class="button" onclick="document.getElementById('fishAudio').play()">שאלה על דג</button>
+            <img src="images/Fish.jpg" alt="דג" class="animal-image" onclick="document.getElementById('fishAudio').play()">
+            <audio id="fishAudio" src="animal_sounds/fish_bubble.mp3"></audio>
         </div>
         <div class="animal-box">
-            <button class="button" onclick="askQuestion('Bear')">שאלה על דוב</button>
-            <img src="images/Bear.jpg" alt="דוב" class="animal-image" onclick="checkAnswer('Bear')">
+            <button class="button" onclick="document.getElementById('bearAudio').play()">שאלה על דוב</button>
+            <img src="images/Bear.jpg" alt="דוב" class="animal-image" onclick="document.getElementById('bearAudio').play()">
+            <audio id="bearAudio" src="animal_sounds/bear_growl.mp3"></audio>
         </div>
     </div>
-
-    <script>
-        var currentAnimal = "";
-
-        function askQuestion(animal) {
-            currentAnimal = animal;
-            var audio = new Audio('animal_sounds/' + animal + '_sound.mp3');
-            audio.play().catch(function(error) {
-                console.error("השמעת הקול נכשלה: ", error);
-            });
-        }
-
-        function checkAnswer(animal) {
-            if (animal === currentAnimal) {
-                var correctSound = new Audio('animal_sounds/' + animal + '_sound.mp3');
-                correctSound.play().catch(function(error) {
-                    console.error("השמעת הקול נכשלה: ", error);
-                });
-                alert("כל הכבוד! זיהית נכון את ה" + animal + "!");
-            } else {
-                alert("זה לא נכון. נסה שוב!");
-            }
-        }
-    </script>
 </body>
 </html>
