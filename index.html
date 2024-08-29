@@ -50,10 +50,20 @@
         .button:hover {
             background-color: #20b2aa;
         }
+        .mute-button {
+            background-color: #dc3545;
+            margin-top: 20px;
+        }
+        .mute-button:hover {
+            background-color: #c82333;
+        }
     </style>
 </head>
 <body>
     <h1>משחק חיות</h1>
+
+    <!-- כפתור השתקה -->
+    <button class="button mute-button" onclick="muteAllSounds()">השתק את כל הקולות</button>
 
     <div class="animal-container">
         <div class="animal-box">
@@ -95,8 +105,8 @@
     </div>
 
     <script>
-        // פונקציה לעצירת כל הקולות לפני השמעת קול חדש
-        function stopAllSounds() {
+        // פונקציה לעצירת כל הקולות
+        function muteAllSounds() {
             const sounds = document.querySelectorAll('audio');
             sounds.forEach(sound => {
                 sound.pause();
@@ -105,13 +115,13 @@
         }
 
         function playAnimalSound(soundId) {
-            stopAllSounds(); // עצור את כל הקולות לפני השמעת החדש
+            muteAllSounds(); // עצור את כל הקולות לפני השמעת החדש
             var sound = document.getElementById(soundId);
             sound.play();
         }
 
         function playQuestion(questionId) {
-            stopAllSounds(); // עצור את כל הקולות לפני השמעת החדש
+            muteAllSounds(); // עצור את כל הקולות לפני השמעת החדש
             var question = document.getElementById(questionId);
             question.play();
         }
