@@ -95,15 +95,24 @@
     </div>
 
     <script>
+        // פונקציה לעצירת כל הקולות לפני השמעת קול חדש
+        function stopAllSounds() {
+            const sounds = document.querySelectorAll('audio');
+            sounds.forEach(sound => {
+                sound.pause();
+                sound.currentTime = 0;
+            });
+        }
+
         function playAnimalSound(soundId) {
+            stopAllSounds(); // עצור את כל הקולות לפני השמעת החדש
             var sound = document.getElementById(soundId);
-            sound.currentTime = 0;
             sound.play();
         }
 
         function playQuestion(questionId) {
+            stopAllSounds(); // עצור את כל הקולות לפני השמעת החדש
             var question = document.getElementById(questionId);
-            question.currentTime = 0;
             question.play();
         }
     </script>
