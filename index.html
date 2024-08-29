@@ -3,48 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>בדיקת קבצים</title>
+    <title>משחק חיות לילדים</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            color: #ff6347;
+            margin-top: 20px;
+        }
+        .animal-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .animal-box {
+            margin: 10px;
+        }
+        .animal-image {
+            width: 150px;
+            height: 150px;
+            border: 3px solid #ff6347;
+            border-radius: 15px;
+            cursor: pointer;
+            background-color: #ffe4b5;
+            padding: 10px;
+        }
+        .animal-image:hover {
+            background-color: #ffebcd;
+        }
+        .button {
+            padding: 15px 30px;
+            font-size: 22px;
+            cursor: pointer;
+            background-color: #48d1cc;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+        .button:hover {
+            background-color: #20b2aa;
+        }
+    </style>
 </head>
 <body>
-    <h1>בדיקת תמונות וקבצי קול</h1>
+    <h1>משחק חיות</h1>
 
-    <h2>תמונות</h2>
-    <img src="images/Elephant.jpg" alt="פיל" width="200">
-    <img src="images/Dog.jpg" alt="כלב" width="200">
-    <img src="images/Cat.jpg" alt="חתול" width="200">
-    <img src="images/Horse.jpg" alt="סוס" width="200">
-    <img src="images/Fish.jpg" alt="דג" width="200">
-    <img src="images/Bear.jpg" alt="דוב" width="200">
+    <div class="animal-container">
+        <div class="animal-box">
+            <button class="button" onclick="askQuestion('Elephant')">שאלה על פיל</button>
+            <img src="images/Elephant.jpg" alt="פיל" class="animal-image" onclick="checkAnswer('Elephant')">
+        </div>
+        <div class="animal-box">
+            <button class="button" onclick="askQuestion('Dog')">שאלה על כלב</button>
+            <img src="images/Dog.jpg" alt="כלב" class="animal-image" onclick="checkAnswer('Dog')">
+        </div>
+        <div class="animal-box">
+            <button class="button" onclick="askQuestion('Cat')">שאלה על חתול</button>
+            <img src="images/Cat.jpg" alt="חתול" class="animal-image" onclick="checkAnswer('Cat')">
+        </div>
+        <div class="animal-box">
+            <button class="button" onclick="askQuestion('Horse')">שאלה על סוס</button>
+            <img src="images/Horse.jpg" alt="סוס" class="animal-image" onclick="checkAnswer('Horse')">
+        </div>
+        <div class="animal-box">
+            <button class="button" onclick="askQuestion('Fish')">שאלה על דג</button>
+            <img src="images/Fish.jpg" alt="דג" class="animal-image" onclick="checkAnswer('Fish')">
+        </div>
+        <div class="animal-box">
+            <button class="button" onclick="askQuestion('Bear')">שאלה על דוב</button>
+            <img src="images/Bear.jpg" alt="דוב" class="animal-image" onclick="checkAnswer('Bear')">
+        </div>
+    </div>
 
-    <h2>קבצי קול</h2>
-    <p>פיל: <audio controls>
-        <source src="sounds/Elephant.mp3" type="audio/mpeg">
-        הדפדפן שלך אינו תומך בנגן קול.
-    </audio></p>
+    <script>
+        var currentAnimal = "";
 
-    <p>כלב: <audio controls>
-        <source src="sounds/Dog.mp3" type="audio/mpeg">
-        הדפדפן שלך אינו תומך בנגן קול.
-    </audio></p>
+        function askQuestion(animal) {
+            currentAnimal = animal;
+            var audio = new Audio('animal_sounds/' + animal + '_sound.mp3');
+            audio.play();
+        }
 
-    <p>חתול: <audio controls>
-        <source src="sounds/Cat.mp3" type="audio/mpeg">
-        הדפדפן שלך אינו תומך בנגן קול.
-    </audio></p>
-
-    <p>סוס: <audio controls>
-        <source src="sounds/Horse.mp3" type="audio/mpeg">
-        הדפדפן שלך אינו תומך בנגן קול.
-    </audio></p>
-
-    <p>דג: <audio controls>
-        <source src="sounds/Fish.mp3" type="audio/mpeg">
-        הדפדפן שלך אינו תומך בנגן קול.
-    </audio></p>
-
-    <p>דוב: <audio controls>
-        <source src="sounds/Bear.mp3" type="audio/mpeg">
-        הדפדפן שלך אינו תומך בנגן קול.
-    </audio></p>
+        function checkAnswer(animal) {
+            if (animal === currentAnimal) {
+                var correctSound = new Audio('animal_sounds/' + animal + '_sound.mp3');
+                correctSound.play();
+                alert("כל הכבוד! זיהית נכון את ה" + animal + "!");
+            } else {
+                alert("זה לא נכון. נסה שוב!");
+            }
+        }
+    </script>
 </body>
 </html>
