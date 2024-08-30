@@ -130,13 +130,25 @@
         function playAnimalSound(soundId) {
             muteAllSounds();
             const sound = document.getElementById(soundId);
-            sound.play();
+            if (sound) {
+                console.log(`Playing sound for: ${soundId}`);
+                console.log(`Sound URL: ${sound.src}`);
+                sound.play().catch(e => console.error(`Failed to play sound: ${e}`));
+            } else {
+                console.error(`Sound element not found for: ${soundId}`);
+            }
         }
 
         function playQuestion(questionId) {
             muteAllSounds();
             const question = document.getElementById(questionId);
-            question.play();
+            if (question) {
+                console.log(`Playing question for: ${questionId}`);
+                console.log(`Question URL: ${question.src}`);
+                question.play().catch(e => console.error(`Failed to play question: ${e}`));
+            } else {
+                console.error(`Question element not found for: ${questionId}`);
+            }
         }
 
         window.onload = createContent;
