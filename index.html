@@ -15,10 +15,17 @@
         h1 {
             color: #ff6347;
             margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .header-image {
+            width: 100px;
+            height: auto;
+            margin-right: 20px;
         }
         .question-container {
             display: flex;
-            flex-wrap: wrap;
             justify-content: space-around;
             margin-top: 20px;
         }
@@ -66,17 +73,95 @@
     </style>
 </head>
 <body>
-    <h1>משחק החיות של עומר</h1>
+    <h1>
+        <img src="images/omer_and_ayla.jpg" alt="עומר ואיילה" class="header-image">
+        משחק החיות של עומר
+    </h1>
 
     <!-- כפתור השתקה -->
     <button class="button mute-button" onclick="muteAllSounds()">השתק את כל הקולות</button>
 
     <!-- שאלות ממוקמות באופן אקראי בחלק העליון של הדף -->
-    <div class="question-container" id="randomQuestions"></div>
+    <div class="question-container">
+        <!-- כפתורי שאלות לכל החיות, כולל החדשות -->
+        <button class="button" onclick="playQuestion('elephantQuestion')">שאלה על פיל</button>
+        <button class="button" onclick="playQuestion('dogQuestion')">שאלה על כלב</button>
+        <button class="button" onclick="playQuestion('catQuestion')">שאלה על חתול</button>
+        <button class="button" onclick="playQuestion('horseQuestion')">שאלה על סוס</button>
+        <button class="button" onclick="playQuestion('fishQuestion')">שאלה על דג</button>
+        <button class="button" onclick="playQuestion('bearQuestion')">שאלה על דוב</button>
+        <button class="button" onclick="playQuestion('lionQuestion')">שאלה על אריה</button>
+        <button class="button" onclick="playQuestion('giraffeQuestion')">שאלה על ג'ירפה</button>
+        <button class="button" onclick="playQuestion('monkeyQuestion')">שאלה על קוף</button>
+        <button class="button" onclick="playQuestion('chickenQuestion')">שאלה על תרנגול</button>
+        <button class="button" onclick="playQuestion('cowQuestion')">שאלה על פרה</button>
+        <button class="button" onclick="playQuestion('parrotQuestion')">שאלה על תוכי</button>
+    </div>
 
-    <!-- תיבות לחיות -->
+    <!-- תיבות לחיות, כולל החדשות -->
     <div class="animal-container">
-        <!-- קוד לתיבות חיות יהיה זהה לקוד קיים, כפי שנמצא במערכת -->
+        <!-- חיות קיימות -->
+        <div class="animal-box">
+            <img src="images/Elephant.jpg" alt="פיל" class="animal-image" onclick="playAnimalSound('elephantSound')">
+            <audio id="elephantSound" src="animal_sounds/elephant_sound.mp3"></audio>
+            <audio id="elephantQuestion" src="sounds/elephant_question.mp3"></audio>
+        </div>
+        <div class="animal-box">
+            <img src="images/Dog.jpg" alt="כלב" class="animal-image" onclick="playAnimalSound('dogSound')">
+            <audio id="dogSound" src="animal_sounds/dog_bark.mp3"></audio>
+            <audio id="dogQuestion" src="sounds/dog_question.mp3"></audio>
+        </div>
+        <div class="animal-box">
+            <img src="images/Cat.jpg" alt="חתול" class="animal-image" onclick="playAnimalSound('catSound')">
+            <audio id="catSound" src="animal_sounds/cat_meow.mp3"></audio>
+            <audio id="catQuestion" src="sounds/cat_question.mp3"></audio>
+        </div>
+        <div class="animal-box">
+            <img src="images/Horse.jpg" alt="סוס" class="animal-image" onclick="playAnimalSound('horseSound')">
+            <audio id="horseSound" src="animal_sounds/horse_neigh.mp3"></audio>
+            <audio id="horseQuestion" src="sounds/horse_question.mp3"></audio>
+        </div>
+        <div class="animal-box">
+            <img src="images/Fish.jpg" alt="דג" class="animal-image" onclick="playAnimalSound('fishSound')">
+            <audio id="fishSound" src="animal_sounds/fish_bubble.mp3"></audio>
+            <audio id="fishQuestion" src="sounds/fish_question.mp3"></audio>
+        </div>
+        <div class="animal-box">
+            <img src="images/Bear.jpg" alt="דוב" class="animal-image" onclick="playAnimalSound('bearSound')">
+            <audio id="bearSound" src="animal_sounds/bear_growl.mp3"></audio>
+            <audio id="bearQuestion" src="sounds/bear_question.mp3"></audio>
+        </div>
+        <!-- חיות חדשות -->
+        <div class="animal-box">
+            <img src="images/Lion.jpg" alt="אריה" class="animal-image" onclick="playAnimalSound('lionSound')">
+            <audio id="lionSound" src="animal_sounds/lion_roar.mp3"></audio>
+            <audio id="lionQuestion" src="sounds/lion_question.mp3"></audio>
+        </div>
+        <div class="animal-box">
+            <img src="images/Giraffe.jpg" alt="ג'ירפה" class="animal-image" onclick="playAnimalSound('giraffeSound')">
+            <audio id="giraffeSound" src="animal_sounds/giraffe_munch.mp3"></audio>
+            <audio id="giraffeQuestion" src="sounds/giraffe_question.mp3"></audio>
+        </div>
+        <div class="animal-box">
+            <img src="images/Monkey.jpg" alt="קוף" class="animal-image" onclick="playAnimalSound('monkeySound')">
+            <audio id="monkeySound" src="animal_sounds/monkey_chatter.mp3"></audio>
+            <audio id="monkeyQuestion" src="sounds/monkey_question.mp3"></audio>
+        </div>
+        <div class="animal-box">
+            <img src="images/Chicken.jpg" alt="תרנגול" class="animal-image" onclick="playAnimalSound('chickenSound')">
+            <audio id="chickenSound" src="animal_sounds/chicken_cluck.mp3"></audio>
+            <audio id="chickenQuestion" src="sounds/chicken_question.mp3"></audio>
+        </div>
+        <div class="animal-box">
+            <img src="images/Cow.jpg" alt="פרה" class="animal-image" onclick="playAnimalSound('cowSound')">
+            <audio id="cowSound" src="animal_sounds/cow_moo.mp3"></audio>
+            <audio id="cowQuestion" src="sounds/cow_question.mp3"></audio>
+        </div>
+        <div class="animal-box">
+            <img src="images/Parrot.jpg" alt="תוכי" class="animal-image" onclick="playAnimalSound('parrotSound')">
+            <audio id="parrotSound" src="animal_sounds/parrot_squawk.mp3"></audio>
+            <audio id="parrotQuestion" src="sounds/parrot_question.mp3"></audio>
+        </div>
     </div>
 
     <script>
@@ -100,27 +185,6 @@
             var question = document.getElementById(questionId);
             question.play();
         }
-
-        // פונקציה לפיזור השאלות באופן רנדומלי
-        function shuffleQuestions() {
-            const questions = [
-                'elephantQuestion', 'dogQuestion', 'catQuestion', 'horseQuestion', 'fishQuestion', 'bearQuestion',
-                'lionQuestion', 'giraffeQuestion', 'monkeyQuestion', 'chickenQuestion', 'cowQuestion', 'parrotQuestion'
-            ];
-            questions.sort(() => Math.random() - 0.5);
-
-            const questionContainer = document.getElementById('randomQuestions');
-            questions.forEach(q => {
-                const button = document.createElement('button');
-                button.className = 'button';
-                button.onclick = () => playQuestion(q);
-                button.textContent = `שאלה על ${q.replace('Question', '')}`;
-                questionContainer.appendChild(button);
-            });
-        }
-
-        // קריאה לפונקציה לפיזור השאלות בעת טעינת הדף
-        window.onload = shuffleQuestions;
     </script>
 </body>
 </html>
