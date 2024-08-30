@@ -15,16 +15,7 @@
         h1 {
             color: #ff6347;
             margin-top: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             font-size: 2.5rem;
-        }
-        .header-image {
-            width: 100px;
-            height: auto;
-            margin-right: 20px;
-            border-radius: 50%;
         }
         .question-container, .animal-container {
             display: flex;
@@ -70,11 +61,6 @@
         .mute-button:hover {
             background-color: #c82333;
         }
-        .animal-name {
-            margin-top: 5px;
-            font-weight: bold;
-            color: #333;
-        }
         @media (max-width: 768px) {
             .animal-image {
                 width: 120px;
@@ -88,10 +74,7 @@
     </style>
 </head>
 <body>
-    <h1>
-        <img src="images/omer_and_ayla.jpg" alt="עומר ואיילה" class="header-image">
-        משחק החיות של עומר
-    </h1>
+    <h1>משחק החיות של עומר</h1>
 
     <button class="button mute-button" onclick="muteAllSounds()">השתק את כל הקולות</button>
 
@@ -114,30 +97,27 @@
             { name: 'תוכי', image: 'Parrot.jpg', sound: 'parrot_squawk.mp3', question: 'parrot_question.mp3' }
         ];
 
-        document.addEventListener("DOMContentLoaded", () => {
+        function createContent() {
             const animalContainer = document.querySelector('.animal-container');
             const questionContainer = document.querySelector('.question-container');
-
             animals.forEach(animal => {
-                // Create animal box
-                const box = document.createElement('div');
-                box.className = 'animal-box';
-                box.innerHTML = `
+                const animalBox = document.createElement('div');
+                animalBox.className = 'animal-box';
+                animalBox.innerHTML = `
                     <img src="images/${animal.image}" alt="${animal.name}" class="animal-image" onclick="playAnimalSound('${animal.name}Sound')">
                     <div class="animal-name">${animal.name}</div>
                     <audio id="${animal.name}Sound" src="animal_sounds/${animal.sound}"></audio>
                     <audio id="${animal.name}Question" src="sounds/${animal.question}"></audio>
                 `;
-                animalContainer.appendChild(box);
+                animalContainer.appendChild(animalBox);
 
-                // Create question button
-                const button = document.createElement('button');
-                button.className = 'button';
-                button.textContent = `שאלה על ${animal.name}`;
-                button.onclick = () => playQuestion(`${animal.name}Question`);
-                questionContainer.appendChild(button);
+                const questionButton = document.createElement('button');
+                questionButton.className = 'button';
+                questionButton.textContent = `שאלה על ${animal.name}`;
+                questionButton.onclick = () => playQuestion(`${animal.name}Question`);
+                questionContainer.appendChild(questionButton);
             });
-        });
+        }
 
         function muteAllSounds() {
             const sounds = document.querySelectorAll('audio');
@@ -158,6 +138,8 @@
             const question = document.getElementById(questionId);
             question.play();
         }
+
+        window.onload = createContent;
     </script>
 </body>
 </html>
