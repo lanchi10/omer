@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>משחק החיות של עומר</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f8ff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            color: #ff6347;
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5rem;
+        }
+        .header-image {
+            width: 100px;
+            height: auto;
+            margin-right: 20px;
+            border-radius: 50%;
+        }
+        .question-container, .animal-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .animal-box {
+            transition: transform 0.3s ease;
+        }
+        .animal-box:hover {
+            transform: scale(1.05);
+        }
+        .animal-image {
+            width: 150px;
+            height: 150px;
+            border: 3px solid #ff6347;
+            border-radius: 15px;
+            cursor: pointer;
+            background-color: #ffe4b5;
+            padding: 10px;
+            object-fit: cover;
+        }
+        .button {
+            padding: 12px 24px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #48d1cc;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #20b2aa;
+        }
+        .mute-button {
+            background-color: #dc3545;
+            margin: 20px auto;
+            display: block;
+        }
+        .mute-button:hover {
+            background-color: #c82333;
+        }
+        .animal-name {
+            margin-top: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        @media (max-width: 768px) {
+            .animal-image {
+                width: 120px;
+                height: 120px;
+            }
+            .button {
+                font-size: 16px;
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>
+        <img src="images/omer_and_ayla.jpg" alt="עומר ואיילה" class="header-image">
+        משחק החיות של עומר
+    </h1>
+
+    <button class="button mute-button" onclick="muteAllSounds()">השתק את כל הקולות</button>
+
+    <div class="question-container"></div>
+    <div class="animal-container"></div>
+
+    <script>
+        const animals = [
+            { name: 'פיל', image: 'Elephant.jpg', sound: 'elephant_sound.mp3', question: 'elephant_question.mp3' },
+            { name: 'כלב', image: 'Dog.jpg', sound: 'dog_bark.mp3', question: 'dog_question.mp3' },
+            { name: 'חתול', image: 'Cat.jpg', sound: 'cat_meow.mp3', question: 'cat_question.mp3' },
+            { name: 'סוס', image: 'Horse.jpg', sound: 'horse_neigh.mp3', question: 'horse_question.mp3' },
+            { name: 'דג', image: 'Fish.jpg', sound: 'fish_bubble.mp3', question: 'fish_question.mp3' },
+            { name: 'דוב', image: 'Bear.jpg', sound: 'bear_growl.mp3', question: 'bear_question.mp3' },
+            { name: 'אריה', image: 'Lion.jpg', sound: 'lion_roar.mp3', question: 'lion_question.mp3' },
+            { name: 'ג\'ירפה', image: 'Giraffe.jpg', sound: 'giraffe_munch.mp3', question: 'giraffe_question.mp3' },
+            { name: 'קוף', image: 'Monkey.jpg', sound: 'monkey_chatter.mp3', question: 'monkey_question.mp3' },
+            { name: 'תרנגול', image: 'Chicken.jpg', sound: 'chicken_cluck.mp3', question: 'chicken_question.mp3' },
+            { name: 'פרה', image: 'Cow.jpg', sound: 'cow_moo.mp3', question: 'cow_question.mp3' },
+            { name: 'תוכי', image: 'Parrot.jpg', sound: 'parrot_squawk.mp3', question: 'parrot_question.mp3' }
+        ];
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const animalContainer = document.querySelector('.animal-container');
+            const questionContainer = document.querySelector('.question-container');
+
+            animals.forEach(animal => {
+                // Create animal box
+                const box = document.createElement('div');
+                box.className = 'animal-box';
+                box.innerHTML = `
+                    <img src="images/${animal.image}" alt="${animal.name}" class="animal-image" onclick="playAnimalSound('${animal.name}Sound')">
+                    <div class="animal-name">${animal.name}</div>
+                    <audio id="${animal.name}Sound" src="animal_sounds/${animal.sound}"></audio>
+                    <audio id="${animal.name}Question" src="sounds/${animal.question}"></audio>
+                `;
+                animalContainer.appendChild(box);
+
+                // Create question button
+                const button = document.createElement('button');
+                button.className = 'button';
+                button.textContent = `שאלה על ${animal.name}`;
+                button.onclick = () => playQuestion(`${animal.name}Question`);
+                questionContainer.appendChild(button);
+            });
+        });
+
+        function muteAllSounds() {
+            const sounds = document.querySelectorAll('audio');
+            sounds.forEach(sound => {
+                sound.pause();
+                sound.currentTime = 0;
+            });
+        }
+
+        function playAnimalSound(soundId) {
+            muteAllSounds();
+            const sound = document.getElementById(soundId);
+            sound.play();
+        }
+
+        function playQuestion(questionId) {
+            muteAllSounds();
+            const question = document.getElementById(questionId);
+            question.play();
+        }
+    </script>
+</body>
+</html>
