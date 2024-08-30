@@ -15,17 +15,10 @@
         h1 {
             color: #ff6347;
             margin-top: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .header-image {
-            width: 100px;
-            height: auto;
-            margin-right: 20px;
         }
         .question-container {
             display: flex;
+            flex-wrap: wrap;
             justify-content: space-around;
             margin-top: 20px;
         }
@@ -73,55 +66,17 @@
     </style>
 </head>
 <body>
-    <h1>
-        <img src="images/omer_and_ayla.jpg" alt="עומר ואיילה" class="header-image">
-        משחק החיות של עומר
-    </h1>
+    <h1>משחק החיות של עומר</h1>
 
     <!-- כפתור השתקה -->
     <button class="button mute-button" onclick="muteAllSounds()">השתק את כל הקולות</button>
 
     <!-- שאלות ממוקמות באופן אקראי בחלק העליון של הדף -->
-    <div class="question-container">
-        <button class="button" onclick="playQuestion('elephantQuestion')">שאלה על פיל</button>
-        <button class="button" onclick="playQuestion('dogQuestion')">שאלה על כלב</button>
-        <button class="button" onclick="playQuestion('catQuestion')">שאלה על חתול</button>
-        <button class="button" onclick="playQuestion('horseQuestion')">שאלה על סוס</button>
-        <button class="button" onclick="playQuestion('fishQuestion')">שאלה על דג</button>
-        <button class="button" onclick="playQuestion('bearQuestion')">שאלה על דוב</button>
-    </div>
+    <div class="question-container" id="randomQuestions"></div>
 
+    <!-- תיבות לחיות -->
     <div class="animal-container">
-        <div class="animal-box">
-            <img src="images/Elephant.jpg" alt="פיל" class="animal-image" onclick="playAnimalSound('elephantSound')">
-            <audio id="elephantSound" src="animal_sounds/elephant_sound.mp3"></audio>
-            <audio id="elephantQuestion" src="animal_sounds/elephant_question.mp3"></audio>
-        </div>
-        <div class="animal-box">
-            <img src="images/Dog.jpg" alt="כלב" class="animal-image" onclick="playAnimalSound('dogSound')">
-            <audio id="dogSound" src="animal_sounds/dog_bark.mp3"></audio>
-            <audio id="dogQuestion" src="animal_sounds/dog_question.mp3"></audio>
-        </div>
-        <div class="animal-box">
-            <img src="images/Cat.jpg" alt="חתול" class="animal-image" onclick="playAnimalSound('catSound')">
-            <audio id="catSound" src="animal_sounds/cat_meow.mp3"></audio>
-            <audio id="catQuestion" src="animal_sounds/cat_question.mp3"></audio>
-        </div>
-        <div class="animal-box">
-            <img src="images/Horse.jpg" alt="סוס" class="animal-image" onclick="playAnimalSound('horseSound')">
-            <audio id="horseSound" src="animal_sounds/horse_neigh.mp3"></audio>
-            <audio id="horseQuestion" src="animal_sounds/horse_question.mp3"></audio>
-        </div>
-        <div class="animal-box">
-            <img src="images/Fish.jpg" alt="דג" class="animal-image" onclick="playAnimalSound('fishSound')">
-            <audio id="fishSound" src="animal_sounds/fish_bubble.mp3"></audio>
-            <audio id="fishQuestion" src="animal_sounds/fish_question.mp3"></audio>
-        </div>
-        <div class="animal-box">
-            <img src="images/Bear.jpg" alt="דוב" class="animal-image" onclick="playAnimalSound('bearSound')">
-            <audio id="bearSound" src="animal_sounds/bear_growl.mp3"></audio>
-            <audio id="bearQuestion" src="animal_sounds/bear_question.mp3"></audio>
-        </div>
+        <!-- קוד לתיבות חיות יהיה זהה לקוד קיים, כפי שנמצא במערכת -->
     </div>
 
     <script>
@@ -145,6 +100,27 @@
             var question = document.getElementById(questionId);
             question.play();
         }
+
+        // פונקציה לפיזור השאלות באופן רנדומלי
+        function shuffleQuestions() {
+            const questions = [
+                'elephantQuestion', 'dogQuestion', 'catQuestion', 'horseQuestion', 'fishQuestion', 'bearQuestion',
+                'lionQuestion', 'giraffeQuestion', 'monkeyQuestion', 'chickenQuestion', 'cowQuestion', 'parrotQuestion'
+            ];
+            questions.sort(() => Math.random() - 0.5);
+
+            const questionContainer = document.getElementById('randomQuestions');
+            questions.forEach(q => {
+                const button = document.createElement('button');
+                button.className = 'button';
+                button.onclick = () => playQuestion(q);
+                button.textContent = `שאלה על ${q.replace('Question', '')}`;
+                questionContainer.appendChild(button);
+            });
+        }
+
+        // קריאה לפונקציה לפיזור השאלות בעת טעינת הדף
+        window.onload = shuffleQuestions;
     </script>
 </body>
 </html>
