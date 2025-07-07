@@ -3,365 +3,281 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>משחק החיות הקסום של עומר</title>
-    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&family=Fredoka+One:wght@400&display=swap" rel="stylesheet">
+    <title>משחק החיות של עומר - עם אפקט קפיצה מרכזי</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap');
+        
         body {
-            font-family: 'Varela Round', sans-serif;
+            font-family: 'Rubik', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
         }
-
-        /* רקע מאנימציה עם צורות צבעוניות */
-        .bg-shapes {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        .shape {
-            position: absolute;
-            opacity: 0.3;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .shape:nth-child(1) {
-            top: 10%;
-            left: 10%;
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(45deg, #ff6b6b, #feca57);
-            border-radius: 50%;
-            animation-delay: 0s;
-        }
-
-        .shape:nth-child(2) {
-            top: 20%;
-            right: 15%;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(45deg, #48dbfb, #0abde3);
-            border-radius: 20px;
-            animation-delay: 2s;
-        }
-
-        .shape:nth-child(3) {
-            bottom: 20%;
-            left: 20%;
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(45deg, #ff9ff3, #f368e0);
-            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-            animation-delay: 4s;
-        }
-
-        .shape:nth-child(4) {
-            bottom: 30%;
-            right: 10%;
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(45deg, #7bed9f, #2ed573);
-            border-radius: 50%;
-            animation-delay: 1s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
-        }
-
-        /* כוכבים מרקדים */
+        
         .stars {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
+            pointer-events: none;
+            z-index: 1;
         }
-
+        
         .star {
             position: absolute;
-            color: #ffd700;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
             animation: twinkle 2s infinite;
         }
-
+        
         @keyframes twinkle {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.2); }
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
         }
-
-        .container {
-            position: relative;
-            z-index: 1;
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        h1 {
-            font-family: 'Fredoka One', cursive;
-            font-size: 3.5rem;
-            text-align: center;
-            color: #fff;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
-            margin-bottom: 30px;
-            animation: bounce 2s infinite;
-            background: linear-gradient(45deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
-            background-size: 400% 400%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: bounce 2s infinite, gradient 4s ease infinite;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-20px); }
-            60% { transform: translateY(-10px); }
-        }
-
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .mute-button {
-            display: block;
-            margin: 0 auto 40px auto;
-            padding: 15px 30px;
-            font-size: 18px;
-            font-weight: bold;
-            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 16px rgba(255, 107, 107, 0.3);
-            font-family: 'Varela Round', sans-serif;
-        }
-
-        .mute-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 24px rgba(255, 107, 107, 0.4);
-        }
-
-        .mute-button:active {
-            transform: translateY(0);
-        }
-
-        .question-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 40px;
-        }
-
-        .question-btn {
-            padding: 12px 20px;
-            font-size: 16px;
-            font-weight: bold;
-            background: linear-gradient(45deg, #48dbfb, #0abde3);
-            color: white;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 12px rgba(72, 219, 251, 0.3);
-            font-family: 'Varela Round', sans-serif;
-        }
-
-        .question-btn:hover {
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 8px 16px rgba(72, 219, 251, 0.4);
-        }
-
-        .animal-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
-
-        .animal-box {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 25px;
-            padding: 20px;
-            text-align: center;
-            transition: all 0.4s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .animal-box::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
+        
+        .floating-hearts {
+            position: fixed;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transition: left 0.5s ease;
+            pointer-events: none;
+            z-index: 1;
         }
-
-        .animal-box:hover::before {
-            left: 100%;
+        
+        .heart {
+            position: absolute;
+            color: #ff69b4;
+            font-size: 20px;
+            animation: float 6s infinite ease-in-out;
+            opacity: 0.6;
         }
-
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .main-container {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .title-glow {
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .animal-box {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
         .animal-box:hover {
             transform: translateY(-10px) scale(1.05);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
-
+        
         .animal-image {
-            width: 140px;
-            height: 140px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
-            cursor: pointer;
             object-fit: cover;
-            border: 5px solid #fff;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            border: 4px solid #fff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
-            margin-bottom: 15px;
         }
-
-        .animal-image:hover {
-            transform: rotate(5deg) scale(1.1);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.3);
-        }
-
+        
         .animal-name {
-            font-size: 20px;
-            font-weight: bold;
-            color: #333;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2d3748;
             margin-top: 10px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
         }
-
-        .animal-icon {
-            font-size: 24px;
-            margin-bottom: 10px;
-            color: #ff6b6b;
+        
+        .button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin: 5px;
         }
-
-        /* אנימציות עם צליל */
-        .playing {
-            animation: pulse 0.5s ease-in-out;
+        
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+        
+        .mute-button {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
         }
-
-        /* אפקטים מיוחדים */
+        
+        .mute-button:hover {
+            background: linear-gradient(135deg, #ee5a24 0%, #d63031 100%);
+        }
+        
+        /* אפקט קפיצה למרכז */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .popup-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .popup-animal {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            transform: scale(0.5);
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .popup-overlay.active .popup-animal {
+            transform: scale(1);
+        }
+        
+        .popup-animal img {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 6px solid #667eea;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        
+        .popup-animal h3 {
+            font-size: 2.5rem;
+            color: #667eea;
+            margin: 20px 0;
+            font-weight: 700;
+        }
+        
         .sparkle {
             position: absolute;
-            width: 20px;
-            height: 20px;
-            background: radial-gradient(circle, #ffd700 0%, transparent 70%);
+            width: 10px;
+            height: 10px;
+            background: #ffea00;
             border-radius: 50%;
-            animation: sparkle 1s ease-out forwards;
+            animation: sparkle 1s infinite;
         }
-
+        
         @keyframes sparkle {
-            0% {
-                opacity: 1;
-                transform: scale(0);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: scale(0);
-            }
+            0%, 100% { transform: scale(0) rotate(0deg); opacity: 0; }
+            50% { transform: scale(1) rotate(180deg); opacity: 1; }
         }
-
-        /* רספונסיבי */
+        
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-            
-            .animal-container {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-                gap: 20px;
-            }
-            
             .animal-image {
                 width: 120px;
                 height: 120px;
             }
             
-            .animal-box {
-                padding: 15px;
+            .popup-animal img {
+                width: 200px;
+                height: 200px;
             }
-        }
-
-        @media (max-width: 480px) {
-            h1 {
+            
+            .popup-animal h3 {
                 font-size: 2rem;
-            }
-            
-            .animal-container {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .animal-image {
-                width: 100px;
-                height: 100px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="bg-shapes">
-        <div class="shape"></div>
-        <div class="shape"></div>
-        <div class="shape"></div>
-        <div class="shape"></div>
+    <div class="stars"></div>
+    <div class="floating-hearts"></div>
+    
+    <div class="main-container">
+        <div class="container mx-auto px-4 py-8">
+            <h1 class="text-6xl font-bold text-center text-white mb-8 title-glow">
+                <i class="fas fa-paw"></i> משחק החיות של עומר <i class="fas fa-heart"></i>
+            </h1>
+
+            <div class="text-center mb-8">
+                <button class="button mute-button" onclick="muteAllSounds()">
+                    <i class="fas fa-volume-mute"></i> השתק את כל הקולות
+                </button>
+            </div>
+
+            <div class="question-container flex flex-wrap justify-center gap-4 mb-8"></div>
+            
+            <div class="animal-container grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-6xl mx-auto"></div>
+        </div>
     </div>
 
-    <div class="stars" id="stars"></div>
-
-    <div class="container">
-        <h1><i class="fas fa-paw"></i> משחק החיות הקסום של עומר <i class="fas fa-paw"></i></h1>
-
-        <button class="mute-button" onclick="muteAllSounds()">
-            <i class="fas fa-volume-mute"></i> השתק את כל הקולות
-        </button>
-
-        <div class="question-container" id="questionContainer"></div>
-        <div class="animal-container" id="animalContainer"></div>
+    <!-- פופאפ למרכז -->
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup-animal">
+            <img id="popupImage" src="" alt="">
+            <h3 id="popupName"></h3>
+            <div class="sparkle" style="top: 10px; right: 10px;"></div>
+            <div class="sparkle" style="bottom: 10px; left: 10px; animation-delay: 0.5s;"></div>
+            <div class="sparkle" style="top: 50%; left: 10px; animation-delay: 1s;"></div>
+            <div class="sparkle" style="top: 10px; left: 50%; animation-delay: 1.5s;"></div>
+        </div>
     </div>
 
     <script>
-        // יצירת כוכבים
+        const animals = [
+            { name: 'פיל', image: 'Elephant.jpg', sound: 'elephant_sound.mp3', question: 'elephant_question.mp3' },
+            { name: 'כלב', image: 'Dog.jpg', sound: 'dog_bark.mp3', question: 'dog_question.mp3' },
+            { name: 'חתול', image: 'Cat.jpg', sound: 'cat_meow.mp3', question: 'cat_question.mp3' },
+            { name: 'סוס', image: 'Horse.jpg', sound: 'horse_neigh.mp3', question: 'horse_question.mp3' },
+            { name: 'דג', image: 'Fish.jpg', sound: 'fish_bubble.mp3', question: 'fish_question.mp3' },
+            { name: 'דוב', image: 'Bear.jpg', sound: 'bear_growl.mp3', question: 'bear_question.mp3' },
+            { name: 'אריה', image: 'Lion.jpg', sound: 'lion_roar.mp3', question: 'lion_question.mp3' },
+            { name: 'ג\'ירפה', image: 'Giraffe.jpg', sound: 'giraffe_munch.mp3', question: 'giraffe_question.mp3' },
+            { name: 'קוף', image: 'Monkey.jpg', sound: 'monkey_chatter.mp3', question: 'monkey_question.mp3' },
+            { name: 'תרנגול', image: 'Chicken.jpg', sound: 'chicken_cluck.mp3', question: 'chicken_question.mp3' },
+            { name: 'פרה', image: 'Cow.jpg', sound: 'cow_moo.mp3', question: 'cow_question.mp3' },
+            { name: 'תוכי', image: 'Parrot.jpg', sound: 'parrot_squawk.mp3', question: 'parrot_question.mp3' }
+        ];
+
         function createStars() {
-            const starsContainer = document.getElementById('stars');
-            for (let i = 0; i < 20; i++) {
+            const starsContainer = document.querySelector('.stars');
+            for (let i = 0; i < 100; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
-                star.innerHTML = '⭐';
                 star.style.left = Math.random() * 100 + '%';
                 star.style.top = Math.random() * 100 + '%';
                 star.style.animationDelay = Math.random() * 2 + 's';
@@ -369,57 +285,59 @@
             }
         }
 
-        const animals = [
-            { name: 'פיל', image: 'Elephant.jpg', sound: 'elephant_sound.mp3', question: 'elephant_question.mp3', icon: '🐘' },
-            { name: 'כלב', image: 'Dog.jpg', sound: 'dog_bark.mp3', question: 'dog_question.mp3', icon: '🐕' },
-            { name: 'חתול', image: 'Cat.jpg', sound: 'cat_meow.mp3', question: 'cat_question.mp3', icon: '🐱' },
-            { name: 'סוס', image: 'Horse.jpg', sound: 'horse_neigh.mp3', question: 'horse_question.mp3', icon: '🐎' },
-            { name: 'דג', image: 'Fish.jpg', sound: 'fish_bubble.mp3', question: 'fish_question.mp3', icon: '🐟' },
-            { name: 'דוב', image: 'Bear.jpg', sound: 'bear_growl.mp3', question: 'bear_question.mp3', icon: '🐻' },
-            { name: 'אריה', image: 'Lion.jpg', sound: 'lion_roar.mp3', question: 'lion_question.mp3', icon: '🦁' },
-            { name: 'ג\'ירפה', image: 'Giraffe.jpg', sound: 'giraffe_munch.mp3', question: 'giraffe_question.mp3', icon: '🦒' },
-            { name: 'קוף', image: 'Monkey.jpg', sound: 'monkey_chatter.mp3', question: 'monkey_question.mp3', icon: '🐒' },
-            { name: 'תרנגול', image: 'Chicken.jpg', sound: 'chicken_cluck.mp3', question: 'chicken_question.mp3', icon: '🐓' },
-            { name: 'פרה', image: 'Cow.jpg', sound: 'cow_moo.mp3', question: 'cow_question.mp3', icon: '🐄' },
-            { name: 'תוכי', image: 'Parrot.jpg', sound: 'parrot_squawk.mp3', question: 'parrot_question.mp3', icon: '🦜' }
-        ];
-
-        function createSparkleEffect(element) {
-            const sparkle = document.createElement('div');
-            sparkle.className = 'sparkle';
-            sparkle.style.left = Math.random() * 100 + '%';
-            sparkle.style.top = Math.random() * 100 + '%';
-            element.appendChild(sparkle);
-
-            setTimeout(() => {
-                sparkle.remove();
-            }, 1000);
+        function createHearts() {
+            const heartsContainer = document.querySelector('.floating-hearts');
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '♥';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.top = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 6 + 's';
+                heartsContainer.appendChild(heart);
+            }
         }
 
         function createContent() {
-            const animalContainer = document.getElementById('animalContainer');
-            const questionContainer = document.getElementById('questionContainer');
+            const animalContainer = document.querySelector('.animal-container');
+            const questionContainer = document.querySelector('.question-container');
             
             animals.forEach(animal => {
-                // יצירת קופסת החיה
                 const animalBox = document.createElement('div');
-                animalBox.className = 'animal-box';
+                animalBox.className = 'animal-box bg-white rounded-3xl p-6 text-center shadow-lg';
                 animalBox.innerHTML = `
-                    <div class="animal-icon">${animal.icon}</div>
-                    <img src="images/${animal.image}" alt="${animal.name}" class="animal-image" onclick="playAnimalSound('${animal.name}Sound', this)">
+                    <img src="images/${animal.image}" alt="${animal.name}" class="animal-image mx-auto" onclick="showAnimalPopup('${animal.name}', 'images/${animal.image}', '${animal.name}Sound')">
                     <div class="animal-name">${animal.name}</div>
                     <audio id="${animal.name}Sound" src="animal_sounds/${animal.sound}"></audio>
                     <audio id="${animal.name}Question" src="sounds/${animal.question}"></audio>
                 `;
                 animalContainer.appendChild(animalBox);
 
-                // יצירת כפתור שאלה
                 const questionButton = document.createElement('button');
-                questionButton.className = 'question-btn';
+                questionButton.className = 'button';
                 questionButton.innerHTML = `<i class="fas fa-question-circle"></i> שאלה על ${animal.name}`;
-                questionButton.onclick = () => playQuestion(`${animal.name}Question`, questionButton);
+                questionButton.onclick = () => playQuestion(`${animal.name}Question`);
                 questionContainer.appendChild(questionButton);
             });
+        }
+
+        function showAnimalPopup(name, imageSrc, soundId) {
+            const popup = document.getElementById('popupOverlay');
+            const popupImage = document.getElementById('popupImage');
+            const popupName = document.getElementById('popupName');
+            
+            popupImage.src = imageSrc;
+            popupName.textContent = name;
+            
+            popup.classList.add('active');
+            
+            // נגן את הצליל
+            playAnimalSound(soundId);
+            
+            // החזר את הפופאפ אחרי 5 שניות
+            setTimeout(() => {
+                popup.classList.remove('active');
+            }, 5000);
         }
 
         function muteAllSounds() {
@@ -428,66 +346,42 @@
                 sound.pause();
                 sound.currentTime = 0;
             });
-            
-            // הסרת כל האנימציות
-            document.querySelectorAll('.playing').forEach(el => {
-                el.classList.remove('playing');
-            });
         }
 
-        function playAnimalSound(soundId, element) {
+        function playAnimalSound(soundId) {
             muteAllSounds();
             const sound = document.getElementById(soundId);
             if (sound) {
                 console.log(`Playing sound for: ${soundId}`);
                 console.log(`Sound URL: ${sound.src}`);
-                
-                // הוספת אנימציה
-                element.classList.add('playing');
-                element.parentElement.style.position = 'relative';
-                
-                // יצירת אפקט נצנוץ
-                createSparkleEffect(element.parentElement);
-                
-                sound.play().catch(e => {
-                    console.error(`Failed to play sound: ${e}`);
-                });
-                
-                // הסרת האנימציה אחרי זמן מסוים
-                setTimeout(() => {
-                    element.classList.remove('playing');
-                }, 500);
+                sound.play().catch(e => console.error(`Failed to play sound: ${e}`));
             } else {
                 console.error(`Sound element not found for: ${soundId}`);
             }
         }
 
-        function playQuestion(questionId, element) {
+        function playQuestion(questionId) {
             muteAllSounds();
             const question = document.getElementById(questionId);
             if (question) {
                 console.log(`Playing question for: ${questionId}`);
                 console.log(`Question URL: ${question.src}`);
-                
-                // הוספת אנימציה
-                element.classList.add('playing');
-                
-                question.play().catch(e => {
-                    console.error(`Failed to play question: ${e}`);
-                });
-                
-                // הסרת האנימציה אחרי זמן מסוים
-                setTimeout(() => {
-                    element.classList.remove('playing');
-                }, 500);
+                question.play().catch(e => console.error(`Failed to play question: ${e}`));
             } else {
                 console.error(`Question element not found for: ${questionId}`);
             }
         }
 
-        // טעינת כל התוכן
+        // סגירה בלחיצה על הרקע
+        document.getElementById('popupOverlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('active');
+            }
+        });
+
         window.onload = function() {
             createStars();
+            createHearts();
             createContent();
         };
     </script>
